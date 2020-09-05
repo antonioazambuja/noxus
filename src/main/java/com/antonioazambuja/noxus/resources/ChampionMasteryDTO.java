@@ -1,4 +1,4 @@
-package com.antonioazambuja.noxus.resources.ChampionMasteryV4;
+package com.antonioazambuja.noxus.resources;
 
 import org.springframework.stereotype.Repository;
 
