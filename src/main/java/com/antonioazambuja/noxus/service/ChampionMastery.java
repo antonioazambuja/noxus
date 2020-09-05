@@ -43,4 +43,18 @@ public class ChampionMastery {
 		);
 		return championMastery.getBody();
 	}
+	
+	public Integer getScoresBySummonerID(String encryptedSummonerId) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("X-Riot-Token", "RGAPI-5adac329-9c25-489f-bf96-5973da9b54a0");
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+		ResponseEntity<Integer> summonerScore = restTemplate.exchange(
+				"https://br1.api.riotgames.com" + "/lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}",
+				HttpMethod.GET,
+				request,
+				Integer.class,
+				encryptedSummonerId
+		);
+		return summonerScore.getBody();
+	}
 }
