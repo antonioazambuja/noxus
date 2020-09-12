@@ -25,6 +25,22 @@ public class ChampionMasteryDTO {
 	@JsonProperty("tokensEarned")
 	private Integer TokensEarned;
 
+	public ChampionMasteryDTO() {}
+
+	public ChampionMasteryDTO(Long championPointsUntilNextLevel, Boolean chestGranted, Long championId,
+			Long lastPlayTime, Integer championLevel, String summonerId, Integer championPoints,
+			Long championPointsSinceLastLevel, Integer tokensEarned) {
+		ChampionPointsUntilNextLevel = championPointsUntilNextLevel;
+		ChestGranted = chestGranted;
+		ChampionId = championId;
+		LastPlayTime = lastPlayTime;
+		ChampionLevel = championLevel;
+		SummonerId = summonerId;
+		ChampionPoints = championPoints;
+		ChampionPointsSinceLastLevel = championPointsSinceLastLevel;
+		TokensEarned = tokensEarned;
+	}
+
 	public Long getChampionPointsUntilNextLevel() {
 		return ChampionPointsUntilNextLevel;
 	}

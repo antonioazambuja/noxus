@@ -29,7 +29,7 @@ public class ChampionMastery {
 		return championMasteries.getBody();
 	}
 	
-	public ChampionMasteryDTO getChampionMasterySummonerByID(String encryptedSummonerId, String championId) {
+	public ChampionMasteryDTO getChampionMasteryByID(String encryptedSummonerId, String championId) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("X-Riot-Token", "RGAPI-5adac329-9c25-489f-bf96-5973da9b54a0");
 		HttpEntity<Object> request = new HttpEntity<>(headers);
@@ -44,7 +44,7 @@ public class ChampionMastery {
 		return championMastery.getBody();
 	}
 	
-	public Integer getScoresBySummonerID(String encryptedSummonerId) {
+	public Integer getScores(String encryptedSummonerId) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("X-Riot-Token", "RGAPI-5adac329-9c25-489f-bf96-5973da9b54a0");
 		HttpEntity<Object> request = new HttpEntity<>(headers);

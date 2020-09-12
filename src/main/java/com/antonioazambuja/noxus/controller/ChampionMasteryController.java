@@ -24,11 +24,11 @@ public class ChampionMasteryController {
 
 	@RequestMapping("/champion/mastery/{encryptedSummonerId}/{championId}")
 	public ChampionMasteryDTO getChampionMasteryBySummonerIdAndChampionId(@PathVariable(value="encryptedSummonerId") String encryptedSummonerId,@PathVariable(value="championId") String championId) {
-		return championMasteryService.getChampionMasterySummonerByID(encryptedSummonerId, championId);
+		return championMasteryService.getChampionMasteryByID(encryptedSummonerId, championId);
 	}
 
 	@RequestMapping("/champion/score/{encryptedSummonerId}")
 	public Integer getScoreChampionMasteryBySummonerIdAndChampionId(@PathVariable(value="encryptedSummonerId") String encryptedSummonerId) {
-		return championMasteryService.getScoresBySummonerID(encryptedSummonerId);
+		return championMasteryService.getScores(encryptedSummonerId);
 	}
 }
