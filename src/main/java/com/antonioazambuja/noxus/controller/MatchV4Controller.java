@@ -24,7 +24,7 @@ public class MatchV4Controller {
 		return matchV4.getMatchById(matchId);
 	}
 
-	@RequestMapping("/match/{matchId}")
+	@RequestMapping("/match/timeline/{matchId}")
 	public MatchTimelineDto getMatchTimelineById(@PathVariable(value="matchId") String matchId) {
 		return matchV4.getTimelineMatchById(matchId);
 	}
