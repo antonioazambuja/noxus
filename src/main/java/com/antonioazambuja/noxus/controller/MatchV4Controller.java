@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.antonioazambuja.noxus.resources.MatchDto;
+import com.antonioazambuja.noxus.resources.MatchTimelineDto;
 import com.antonioazambuja.noxus.resources.MatchlistDto;
 import com.antonioazambuja.noxus.service.MatchV4;
 
@@ -23,8 +24,13 @@ public class MatchV4Controller {
 		return matchV4.getMatchById(matchId);
 	}
 
+	@RequestMapping("/match/{matchId}")
+	public MatchTimelineDto getMatchTimelineById(@PathVariable(value="matchId") String matchId) {
+		return matchV4.getTimelineMatchById(matchId);
+	}
+
 	@RequestMapping("/matches/{encryptedAccountId}")
-	public MatchlistDto getMatchesByAccountId(
+	public MatchlistDto getMatchlistByAccountId(
 			@PathVariable(value="encryptedAccountId") String encryptedAccountId,
 			@RequestParam(name = "champion", required = false, defaultValue = "") HashSet<Integer> champion,
 			@RequestParam(name = "queue", required = false, defaultValue = "") HashSet<Integer> queue,

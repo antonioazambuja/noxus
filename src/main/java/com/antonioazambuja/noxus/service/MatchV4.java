@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.antonioazambuja.noxus.resources.MatchDto;
+import com.antonioazambuja.noxus.resources.MatchTimelineDto;
 import com.antonioazambuja.noxus.resources.MatchlistDto;
 
 @Service
@@ -32,6 +33,18 @@ public class MatchV4 {
 				matchId
 				);
 		return matchDTO.getBody();
+	}
+
+	public MatchTimelineDto getTimelineMatchById(String matchId) {
+		HttpEntity<Object> request = new HttpEntity<>(headers);
+		ResponseEntity<MatchTimelineDto> matchTimelineDTO = restTemplate.exchange(
+				"https://br1.api.riotgames.com" + "/lol/match/v4/timelines/by-match/{matchId}",
+				HttpMethod.GET,
+				request,
+				MatchTimelineDto.class,
+				matchId
+				);
+		return matchTimelineDTO.getBody();
 	}
 
 	public MatchlistDto getMatchesByAccountId(String encryptedAccountId, HashSet<Integer> champion, HashSet<Integer> queue, HashSet<Integer> season, Long endTime, Long beginTime, Integer endIndex, Integer beginIndex) {
