@@ -2,7 +2,6 @@ package com.antonioazambuja.noxus.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,10 +17,9 @@ public class SpectatorV4 {
 	private RestTemplate restTemplate;
 
 	@Autowired
-	private HttpHeaders headers;
+	private HttpEntity<Object> request;
 	
 	public FeaturedGame getFeatuedGames() {
-		HttpEntity<Object> request = new HttpEntity<>(headers);
 		ResponseEntity<FeaturedGame> featuredGames = restTemplate.exchange(
 				"https://br1.api.riotgames.com" + "/lol/spectator/v4/featured-games",
 				HttpMethod.GET,
@@ -32,7 +30,6 @@ public class SpectatorV4 {
 	}
 
 	public CurrentGameInfo getActiveGamesBySummoner(String encryptedSummonerId) {
-		HttpEntity<Object> request = new HttpEntity<>(headers);
 		ResponseEntity<CurrentGameInfo> currentGameInfo = restTemplate.exchange(
 				"https://br1.api.riotgames.com" + "/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}",
 				HttpMethod.GET,

@@ -6,8 +6,11 @@ import java.net.URISyntaxException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.Gson;
 
 import redis.clients.jedis.Jedis;
 
@@ -24,12 +27,16 @@ public class Config {
 	public RestTemplate restTemplate() { return new RestTemplate(); }
 
 	@Bean
+	public Gson gson() { return new Gson(); }
+
+	@Bean
 	public Jedis jedisClient() throws URISyntaxException { return new Jedis(new URI(redisURI)); }
 
 	@Bean
-	public HttpHeaders httpHeaders() { 
+	public HttpEntity<Object> httpEntity() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("X-Riot-Token", riotApiKey);
-		return headers;
+		return new HttpEntity<>(headers);
 	}
+
 }

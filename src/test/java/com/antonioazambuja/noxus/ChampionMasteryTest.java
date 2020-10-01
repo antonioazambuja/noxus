@@ -8,12 +8,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.antonioazambuja.noxus.resources.ChampionMasteryDTO;
-import com.antonioazambuja.noxus.service.ChampionMastery;
+import com.antonioazambuja.noxus.service.ChampionMasteryV4;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChampionMasteryTest {
 	@Mock
-	ChampionMastery championMasteryService;
+	ChampionMasteryV4 championMasteryService;
 	
 	@Test
 	public void getChampionMasteriesTest() {

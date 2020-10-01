@@ -15,5 +15,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile('com.fasterxml.jackson.core:jackson-core:2.9.8',
     		'org.mockito:mockito-core:2.7.22',
-    		'redis.clients:jedis:3.3.0')
+    		'redis.clients:jedis:3.3.0',
+    		'com.google.code.gson:gson:2.7')
 }
