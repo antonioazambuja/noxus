@@ -4,9 +4,12 @@ import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,9 +21,12 @@ import com.google.gson.Gson;
 import redis.clients.jedis.Jedis;
 
 @Service
-public class MatchV4 {
+public class MatchV4Service {
 
 	private static final String MATCH_V4_CACHE_ID = "match_v4_";
+
+	@Autowired
+	private RedisUtilsService redisUtils;
 
 	@Autowired
 	private Gson gson;
@@ -33,7 +39,11 @@ public class MatchV4 {
 
 	@Autowired
 	private HttpEntity<Object> request;
-	
+
+	@Value("${RIOT_API}")
+	private String riotApi;
+
+	@Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000))
 	public MatchDto getMatchById(String matchId) {
 		String cacheKey = MATCH_V4_CACHE_ID + matchId;
 		MatchDto cacheResult = gson.fromJson(redisClient.get(cacheKey), MatchDto.class);
@@ -41,16 +51,18 @@ public class MatchV4 {
 			return cacheResult;
 		}
 		ResponseEntity<MatchDto> matchDTO = restTemplate.exchange(
-				"https://br1.api.riotgames.com" + "/lol/match/v4/matches/{matchId}",
+				riotApi + "/lol/match/v4/matches/{matchId}",
 				HttpMethod.GET,
 				request,
 				MatchDto.class,
 				matchId
 				);
 		redisClient.set(cacheKey, gson.toJson(matchDTO.getBody()));
+		redisUtils.expireAt(cacheKey);
 		return matchDTO.getBody();
 	}
 
+	@Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000))
 	public MatchTimelineDto getTimelineMatchById(String matchId) {
 		String cacheKey = MATCH_V4_CACHE_ID + "timeline_" + matchId;
 		MatchTimelineDto cacheResult = gson.fromJson(redisClient.get(cacheKey), MatchTimelineDto.class);
@@ -58,16 +70,18 @@ public class MatchV4 {
 			return cacheResult;
 		}
 		ResponseEntity<MatchTimelineDto> matchTimelineDTO = restTemplate.exchange(
-				"https://br1.api.riotgames.com" + "/lol/match/v4/timelines/by-match/{matchId}",
+				riotApi + "/lol/match/v4/timelines/by-match/{matchId}",
 				HttpMethod.GET,
 				request,
 				MatchTimelineDto.class,
 				matchId
 				);
 		redisClient.set(cacheKey, gson.toJson(matchTimelineDTO.getBody()));
+		redisUtils.expireAt(cacheKey);
 		return matchTimelineDTO.getBody();
 	}
 
+	@Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000))
 	public MatchlistDto getMatchesByAccountId(String encryptedAccountId, HashSet<Integer> champion, HashSet<Integer> queue, HashSet<Integer> season, Long endTime, Long beginTime, Integer endIndex, Integer beginIndex) {
 		StringBuilder cacheKey = new StringBuilder()
 			.append(MATCH_V4_CACHE_ID)
@@ -85,7 +99,7 @@ public class MatchV4 {
 			return cacheResult;
 		}
 		ResponseEntity<MatchlistDto> matchlistDto = restTemplate.exchange(
-				"https://br1.api.riotgames.com" + "/lol/match/v4/matchlists/by-account/{encryptedAccountId}?champion={champion}?queue={queue}?season={season}?endTime={endTime}?beginTime={beginTime}?endIndex={endIndex}?beginIndex={beginIndex}",
+				riotApi + "/lol/match/v4/matchlists/by-account/{encryptedAccountId}?champion={champion}?queue={queue}?season={season}?endTime={endTime}?beginTime={beginTime}?endIndex={endIndex}?beginIndex={beginIndex}",
 				HttpMethod.GET,
 				request,
 				MatchlistDto.class,
@@ -99,6 +113,7 @@ public class MatchV4 {
 				beginIndex
 				);
 		redisClient.set(cacheKey.toString(), gson.toJson(matchlistDto.getBody()));
+		redisUtils.expireAt(cacheKey.toString());
 		return matchlistDto.getBody();
 	}
 

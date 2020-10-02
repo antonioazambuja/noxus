@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.antonioazambuja.noxus.resources.ChampionMasteryDTO;
-import com.antonioazambuja.noxus.service.ChampionMasteryV4;
+import com.antonioazambuja.noxus.service.ChampionMasteryV4Service;
 
 @RestController
-public class ChampionMasteryController {
+public class ChampionMasteryV4Controller {
 
 	@Autowired
-	private ChampionMasteryV4 championMasteryV4Service;
+	private ChampionMasteryV4Service championMasteryV4Service;
 
 	@RequestMapping("/champion/mastery/{encryptedSummonerId}")
 	public ArrayList<ChampionMasteryDTO> getChampionMasteriesBySummonerId(@PathVariable(value="encryptedSummonerId") String encryptedSummonerId) {

@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.antonioazambuja.noxus.resources.SummonerDTO;
-import com.antonioazambuja.noxus.service.SummonerV4;
+import com.antonioazambuja.noxus.service.SummonerV4Service;
 
 @RestController
 public class SummonerV4Controller {
 
 	@Autowired
-	private SummonerV4 summonerV4;
+	private SummonerV4Service summonerV4;
 
 	@RequestMapping("/summoner/by-account/{encryptedAccountId}")
 	public SummonerDTO getSummonerByEncryptedAccountId(@PathVariable(value="encryptedAccountId") String encryptedAccountId) {

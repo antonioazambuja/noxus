@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.antonioazambuja.noxus.resources.ChampionInfoV3;
-import com.antonioazambuja.noxus.service.ChampionV3;
+import com.antonioazambuja.noxus.service.ChampionV3Service;
 
 @RestController
 public class ChampionV3Controller {
 
 	@Autowired
-	private ChampionV3 championV3;
+	private ChampionV3Service championV3;
 
 	@RequestMapping("/champion/rotation")
 	public ChampionInfoV3 getChampionRotation() {

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.antonioazambuja.noxus.resources.MatchDto;
 import com.antonioazambuja.noxus.resources.MatchTimelineDto;
 import com.antonioazambuja.noxus.resources.MatchlistDto;
-import com.antonioazambuja.noxus.service.MatchV4;
+import com.antonioazambuja.noxus.service.MatchV4Service;
 
 @RestController
 public class MatchV4Controller {
 
 	@Autowired
-	private MatchV4 matchV4;
+	private MatchV4Service matchV4;
 
 	@RequestMapping("/match/{matchId}")
 	public MatchDto getMatchById(@PathVariable(value="matchId") String matchId) {

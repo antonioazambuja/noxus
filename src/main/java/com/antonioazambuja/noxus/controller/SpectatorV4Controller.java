@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.antonioazambuja.noxus.resources.CurrentGameInfo;
 import com.antonioazambuja.noxus.resources.FeaturedGame;
-import com.antonioazambuja.noxus.service.SpectatorV4;
+import com.antonioazambuja.noxus.service.SpectatorV4Service;
 
 @RestController
 public class SpectatorV4Controller {
 
 	@Autowired
-	private SpectatorV4 spectatorV4;
+	private SpectatorV4Service spectatorV4;
 
 	@RequestMapping("/featured-games")
 	public FeaturedGame getFeaturedGames() {

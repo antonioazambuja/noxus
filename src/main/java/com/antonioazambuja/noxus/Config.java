@@ -8,18 +8,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 
 import redis.clients.jedis.Jedis;
 
+@EnableRetry
 @Configuration
 public class Config {
 
 	@Value("${configuration.redis.uri}")
 	private String redisURI;
-
+	
 	@Value("${configuration.riot.api.key}")
 	private String riotApiKey;
 

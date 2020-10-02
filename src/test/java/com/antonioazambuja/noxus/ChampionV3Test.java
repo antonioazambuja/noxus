@@ -10,12 +10,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.antonioazambuja.noxus.resources.ChampionInfoV3;
-import com.antonioazambuja.noxus.service.ChampionV3;
+import com.antonioazambuja.noxus.service.ChampionV3Service;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChampionV3Test {
 	@Mock
-    private ChampionV3 championV3;
+    private ChampionV3Service championV3;
 	
 	@Test
 	public void getChampionRotationTest() {
