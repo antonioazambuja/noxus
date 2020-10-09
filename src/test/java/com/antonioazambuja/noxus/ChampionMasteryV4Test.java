@@ -18,35 +18,38 @@ public class ChampionMasteryV4Test {
 	@Test
 	public void getChampionMasteriesTest() {
 		String encryptedSummoner = "encryptedSummonerIdTest";
+		ChampionMasteryDTO[] championsMasteriesOfUser = new ChampionMasteryDTO[]{new ChampionMasteryDTO(new Long(10), true, new Long(1),
+    			new Long("1577847600000"), 20, "summonerIdTest", new Integer(1000000),
+    			new Long("100000"), new Integer(1))};
 		Mockito
-        .when(championMasteryService.getChampionMasteries(encryptedSummoner))
-        .thenReturn(new ChampionMasteryDTO[]{new ChampionMasteryDTO(new Long(10), true, new Long(1),
-        			new Long("1577847600000"), 20, "summonerIdTest", new Integer(1000000),
-        			new Long("100000"), new Integer(1))});
-		ChampionMasteryDTO[] championsMasteriesOfUser = championMasteryService.getChampionMasteries(encryptedSummoner);
-		for (int i = 0; i < championsMasteriesOfUser.length; i++) {
-		 	Assert.assertEquals(championsMasteriesOfUser[i].getSummonerId(), "summonerIdTest");
-		}
+	        .when(championMasteryService.getChampionMasteries(encryptedSummoner))
+	        .thenReturn(championsMasteriesOfUser);
+		Assert.assertArrayEquals(championMasteryService.getChampionMasteries(encryptedSummoner), championsMasteriesOfUser);
+		Mockito.verify(championMasteryService).getChampionMasteries(encryptedSummoner);
 	}
 	
 	@Test
 	public void getChampionMasteryByIDTest() {
 		String encryptedSummonerId = "encryptedSummonerIdTest";
 		String championId = "1";
+		ChampionMasteryDTO championMastery = new ChampionMasteryDTO(new Long(10), true, new Long(1),
+				new Long("1577847600000"), 20, "summonerIdTest", new Integer(1000000),
+				new Long("100000"), new Integer(1));
 		Mockito
-        .when(championMasteryService.getChampionMasteryByID(encryptedSummonerId, championId))
-        .thenReturn(new ChampionMasteryDTO(new Long(10), true, new Long(1),
-        			new Long("1577847600000"), 20, "summonerIdTest", new Integer(1000000),
-        			new Long("100000"), new Integer(1)));
-		ChampionMasteryDTO championMastery = championMasteryService.getChampionMasteryByID(encryptedSummonerId, championId);
-		Assert.assertEquals(championMastery.getChampionPointsUntilNextLevel(), new Long(10));
-		Assert.assertEquals(championMastery.getChestGranted(), true);
-		Assert.assertEquals(championMastery.getChampionId(), new Long(1));
-		Assert.assertEquals(championMastery.getLastPlayTime(), new Long("1577847600000"));
-		Assert.assertEquals(championMastery.getChampionLevel(), new Integer(20));
-		Assert.assertEquals(championMastery.getSummonerId(), "summonerIdTest");
-		Assert.assertEquals(championMastery.getChampionPoints(), new Integer(1000000));
-		Assert.assertEquals(championMastery.getChampionPointsSinceLastLevel(), new Long("100000"));
-		Assert.assertEquals(championMastery.getTokensEarned(), new Integer(1));
+			.when(championMasteryService.getChampionMasteryByID(encryptedSummonerId, championId))
+			.thenReturn(championMastery);
+		Assert.assertEquals(championMasteryService.getChampionMasteryByID(encryptedSummonerId, championId), championMastery);
+		Mockito.verify(championMasteryService).getChampionMasteryByID(encryptedSummonerId, championId);
+	}
+
+	@Test
+	public void getScoresTest() {
+		String encryptedSummonerId = "encryptedSummonerIdTest";
+		Integer championMasteriesScores = new Integer(27);
+		Mockito
+	        .when(championMasteryService.getScores(encryptedSummonerId))
+	        .thenReturn(championMasteriesScores);
+		Assert.assertEquals(championMasteriesScores, championMasteryService.getScores(encryptedSummonerId));
+		Mockito.verify(championMasteryService).getScores(encryptedSummonerId);
 	}
 }
