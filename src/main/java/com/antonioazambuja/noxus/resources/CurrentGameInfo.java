@@ -29,13 +29,13 @@ public class CurrentGameInfo {
 	@JsonProperty("observers")
 	private Observer Observers;
 	@JsonProperty("participants")
-	private List<Participant> Participants;
+	private List<ParticipantDto> Participants;
 
 	public CurrentGameInfo() {}
 
 	public CurrentGameInfo(Long gameId, String gameType, Long gameStartTime, Long mapId, Long gameLength,
 			String platformId, String gameMode, List<BannedChampion> bannedChampions, Long gameQueueConfigId,
-			Observer observers, List<Participant> participants) {
+			Observer observers, List<ParticipantDto> participants) {
 		GameId = gameId;
 		GameType = gameType;
 		GameStartTime = gameStartTime;
@@ -129,11 +129,11 @@ public class CurrentGameInfo {
 		Observers = observers;
 	}
 
-	public List<Participant> getParticipants() {
+	public List<ParticipantDto> getParticipants() {
 		return Participants;
 	}
 
-	public void setParticipants(List<Participant> participants) {
+	public void setParticipants(List<ParticipantDto> participants) {
 		Participants = participants;
 	}
 }

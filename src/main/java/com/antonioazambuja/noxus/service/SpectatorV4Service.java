@@ -26,7 +26,7 @@ public class SpectatorV4Service {
 	private String riotApi;
 
 	@Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000))
-	public FeaturedGame getFeatuedGames() {
+	public FeaturedGame getFeaturedGames() {
 		ResponseEntity<FeaturedGame> featuredGames = restTemplate.exchange(
 				riotApi + "/lol/spectator/v4/featured-games",
 				HttpMethod.GET,

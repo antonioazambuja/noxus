@@ -27,7 +27,7 @@ public class ChampionMasteryV4Controller {
 		return championMasteryV4Service.getChampionMasteryByID(encryptedSummonerId, championId);
 	}
 
-	@RequestMapping("/champion/score/{encryptedSummonerId}")
+	@RequestMapping("/champion/mastery/score/{encryptedSummonerId}")
 	public Integer getScoreChampionMasteryBySummonerIdAndChampionId(@PathVariable(value="encryptedSummonerId") String encryptedSummonerId) {
 		return championMasteryV4Service.getScores(encryptedSummonerId);
 	}

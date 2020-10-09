@@ -27,7 +27,7 @@ public class FeaturedGameInfo {
 	@JsonProperty("gameStartTime")
 	private Long GameStartTime;
 	@JsonProperty("participants")
-	private List<Participant> Participants;
+	private List<ParticipantDto> Participants;
 	@JsonProperty("platformId")
 	private String PlatformId;
 
@@ -35,7 +35,7 @@ public class FeaturedGameInfo {
 
 	public FeaturedGameInfo(String gameMode, Long gameLength, Long mapId, String gameType,
 			List<BannedChampion> bannedChampions, Long gameId, Observer observers, Long gameQueueConfigId,
-			Long gameStartTime, List<Participant> participants, String platformId) {
+			Long gameStartTime, List<ParticipantDto> participants, String platformId) {
 		GameMode = gameMode;
 		GameLength = gameLength;
 		MapId = mapId;
@@ -121,11 +121,11 @@ public class FeaturedGameInfo {
 		GameStartTime = gameStartTime;
 	}
 
-	public List<Participant> getParticipants() {
+	public List<ParticipantDto> getParticipants() {
 		return Participants;
 	}
 
-	public void setParticipants(List<Participant> participants) {
+	public void setParticipants(List<ParticipantDto> participants) {
 		Participants = participants;
 	}
 

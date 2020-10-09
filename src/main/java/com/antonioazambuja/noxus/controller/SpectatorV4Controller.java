@@ -17,7 +17,7 @@ public class SpectatorV4Controller {
 
 	@RequestMapping("/featured-games")
 	public FeaturedGame getFeaturedGames() {
-		return spectatorV4.getFeatuedGames();
+		return spectatorV4.getFeaturedGames();
 	}
 
 	@RequestMapping("/active-games/by-summoner/{encryptedSummonerId}")

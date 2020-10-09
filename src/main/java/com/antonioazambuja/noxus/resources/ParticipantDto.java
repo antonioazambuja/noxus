@@ -1,80 +1,129 @@
 package com.antonioazambuja.noxus.resources;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Repository
 public class ParticipantDto {
-	@JsonProperty("bot")
-	private Boolean Bot;
-	@JsonProperty("spell2Id")
-	private Long Spell2Id;
-	@JsonProperty("profileIconId")
-	private Long ProfileIconId;
-	@JsonProperty("summonerName")
-	private String SummonerName;
+	@JsonProperty("participantId")
+	private Integer ParticipantId;
 	@JsonProperty("championId")
-	private Long ChampionId;
+	private Integer ChampionId;
+	@JsonProperty("runes")
+	private List<RuneDto> Runes;
+	@JsonProperty("stats")
+	private ParticipantStatsDto Stats;
 	@JsonProperty("teamId")
-	private Long TeamId;
+	private Integer TeamId;
+	@JsonProperty("timeline")
+	private ParticipantTimelineDto Timeline;
 	@JsonProperty("spell1Id")
-	private Long Spell1Id;
-
-	public ParticipantDto(Boolean bot, Long spell2Id, Long profileIconId, String summonerName, Long championId,
-			Long teamId, Long spell1Id) {
-		Bot = bot;
-		Spell2Id = spell2Id;
-		ProfileIconId = profileIconId;
-		SummonerName = summonerName;
-		ChampionId = championId;
-		TeamId = teamId;
-		Spell1Id = spell1Id;
-	}
+	private Integer Spell1Id;
+	@JsonProperty("spell2Id")
+	private Integer Spell2Id;
+	@JsonProperty("highestAchievedSeasonTier")
+	private String HighestAchievedSeasonTier;
+	@JsonProperty("masteries")
+	private List<MasteryDto> Masteries;
 
 	public ParticipantDto() {}
 
-	public Boolean getBot() {
-		return Bot;
-	}
-	public void setBot(Boolean bot) {
-		Bot = bot;
-	}
-	public Long getSpell2Id() {
-		return Spell2Id;
-	}
-	public void setSpell2Id(Long spell2Id) {
+	public ParticipantDto(Integer participantId, Integer championId, List<RuneDto> runes, ParticipantStatsDto stats, Integer teamId,
+			ParticipantTimelineDto timeline, Integer spell1Id, Integer spell2Id, String highestAchievedSeasonTier,
+			List<MasteryDto> masteries) {
+		ParticipantId = participantId;
+		ChampionId = championId;
+		Runes = runes;
+		Stats = stats;
+		TeamId = teamId;
+		Timeline = timeline;
+		Spell1Id = spell1Id;
 		Spell2Id = spell2Id;
+		HighestAchievedSeasonTier = highestAchievedSeasonTier;
+		Masteries = masteries;
 	}
-	public Long getProfileIconId() {
-		return ProfileIconId;
+
+	public Integer getParticipantId() {
+		return ParticipantId;
 	}
-	public void setProfileIconId(Long profileIconId) {
-		ProfileIconId = profileIconId;
+
+	public void setParticipantId(Integer participantId) {
+		ParticipantId = participantId;
 	}
-	public String getSummonerName() {
-		return SummonerName;
-	}
-	public void setSummonerName(String summonerName) {
-		SummonerName = summonerName;
-	}
-	public Long getChampionId() {
+
+	public Integer getChampionId() {
 		return ChampionId;
 	}
-	public void setChampionId(Long championId) {
+
+	public void setChampionId(Integer championId) {
 		ChampionId = championId;
 	}
-	public Long getTeamId() {
+
+	public List<RuneDto> getRunes() {
+		return Runes;
+	}
+
+	public void setRunes(List<RuneDto> runes) {
+		Runes = runes;
+	}
+
+	public ParticipantStatsDto getStats() {
+		return Stats;
+	}
+
+	public void setStats(ParticipantStatsDto stats) {
+		Stats = stats;
+	}
+
+	public Integer getTeamId() {
 		return TeamId;
 	}
-	public void setTeamId(Long teamId) {
+
+	public void setTeamId(Integer teamId) {
 		TeamId = teamId;
 	}
-	public Long getSpell1Id() {
+
+	public ParticipantTimelineDto getTimeline() {
+		return Timeline;
+	}
+
+	public void setTimeline(ParticipantTimelineDto timeline) {
+		Timeline = timeline;
+	}
+
+	public Integer getSpell1Id() {
 		return Spell1Id;
 	}
-	public void setSpell1Id(Long spell1Id) {
+
+	public void setSpell1Id(Integer spell1Id) {
 		Spell1Id = spell1Id;
+	}
+
+	public Integer getSpell2Id() {
+		return Spell2Id;
+	}
+
+	public void setSpell2Id(Integer spell2Id) {
+		Spell2Id = spell2Id;
+	}
+
+	public String getHighestAchievedSeasonTier() {
+		return HighestAchievedSeasonTier;
+	}
+
+	public void setHighestAchievedSeasonTier(String highestAchievedSeasonTier) {
+		HighestAchievedSeasonTier = highestAchievedSeasonTier;
+	}
+
+	public List<MasteryDto> getMasteries() {
+		return Masteries;
+	}
+
+	public void setMasteries(List<MasteryDto> masteries) {
+		Masteries = masteries;
 	}
 
 }

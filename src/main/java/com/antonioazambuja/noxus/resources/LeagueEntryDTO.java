@@ -25,7 +25,7 @@ public class LeagueEntryDTO {
 	@JsonProperty("losses")
 	private Integer Losses;
 	@JsonProperty("hotStreak")
-	private Boolean BotStreak;
+	private Boolean HotStreak;
 	@JsonProperty("veteran")
 	private Boolean Veteran;
 	@JsonProperty("freshBlood")
@@ -36,7 +36,7 @@ public class LeagueEntryDTO {
 	private MiniSeriesDTO MiniSeries;
 
 	public LeagueEntryDTO(String leagueId, String summonerId, String summonerName, String queueType, String tier,
-			String rank, Integer leaguePoints, Integer wins, Integer losses, Boolean botStreak, Boolean veteran,
+			String rank, Integer leaguePoints, Integer wins, Integer losses, Boolean hotStreak, Boolean veteran,
 			Boolean freshBlood, Boolean inactive, MiniSeriesDTO miniSeries) {
 		LeagueId = leagueId;
 		SummonerId = summonerId;
@@ -47,7 +47,7 @@ public class LeagueEntryDTO {
 		LeaguePoints = leaguePoints;
 		Wins = wins;
 		Losses = losses;
-		BotStreak = botStreak;
+		HotStreak = hotStreak;
 		Veteran = veteran;
 		FreshBlood = freshBlood;
 		Inactive = inactive;
@@ -128,12 +128,12 @@ public class LeagueEntryDTO {
 		Losses = losses;
 	}
 
-	public Boolean getBotStreak() {
-		return BotStreak;
+	public Boolean getHotStreak() {
+		return HotStreak;
 	}
 
-	public void setBotStreak(Boolean botStreak) {
-		BotStreak = botStreak;
+	public void setBotStreak(Boolean hotStreak) {
+		HotStreak = hotStreak;
 	}
 
 	public Boolean getVeteran() {
