@@ -18,7 +18,7 @@ import redis.clients.jedis.Jedis;
 @Service
 public class ChampionV3Service {
 
-	private static final String CHAMPION_V3_CACHE_ID = "champion_v3";
+	private static final String CHAMPION_V3_CACHE_ID = "champion_v3_";
 
 	@Autowired
 	private RedisUtilsService redisUtils;
@@ -40,7 +40,7 @@ public class ChampionV3Service {
 
 	@Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000))
 	public ChampionInfoV3 getChampionRotation() {
-		String cacheKey = CHAMPION_V3_CACHE_ID + "_rotation";
+		String cacheKey = CHAMPION_V3_CACHE_ID + "rotation";
 		ChampionInfoV3 cacheResult = gson.fromJson(redisClient.get(cacheKey), ChampionInfoV3.class);
 		if (cacheResult != null) {
 			return cacheResult;

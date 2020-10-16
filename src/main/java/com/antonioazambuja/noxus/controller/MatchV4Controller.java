@@ -32,13 +32,13 @@ public class MatchV4Controller {
 	@RequestMapping("/matches/{encryptedAccountId}")
 	public MatchlistDto getMatchlistByAccountId(
 			@PathVariable(value="encryptedAccountId") String encryptedAccountId,
-			@RequestParam(name = "champion", required = false, defaultValue = "") HashSet<Integer> champion,
-			@RequestParam(name = "queue", required = false, defaultValue = "") HashSet<Integer> queue,
-			@RequestParam(name = "season", required = false, defaultValue = "") HashSet<Integer> season,
-			@RequestParam(name = "endTime", required = false, defaultValue = "") Long endTime,
-			@RequestParam(name = "beginTime", required = false, defaultValue = "") Long beginTime,
-			@RequestParam(name = "endIndex", required = false, defaultValue = "") Integer endIndex,
-			@RequestParam(name = "beginIndex", required = false, defaultValue = "") Integer beginIndex
+			@RequestParam(name = "champion", required = false) HashSet<Integer> champion,
+			@RequestParam(name = "queue", required = false) HashSet<Integer> queue,
+			@RequestParam(name = "season", required = false) HashSet<Integer> season,
+			@RequestParam(name = "endTime", required = false) Long endTime,
+			@RequestParam(name = "beginTime", required = false) Long beginTime,
+			@RequestParam(name = "endIndex", required = false) Integer endIndex,
+			@RequestParam(name = "beginIndex", required = false) Integer beginIndex
 			) {
 		return matchV4.getMatchesByAccountId(encryptedAccountId, champion, queue, season, endTime, beginTime, endIndex, beginIndex);
 	}

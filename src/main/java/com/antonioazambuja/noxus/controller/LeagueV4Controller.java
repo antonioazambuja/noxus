@@ -45,7 +45,7 @@ public class LeagueV4Controller {
 		return new ArrayList<LeagueEntryDTO>(Arrays.asList(leagueV4.getEntriesByQueueTierDivision(queue, tier, division)));
 	}
 
-	@RequestMapping("/league/by-id/{leagueId}")
+	@RequestMapping("/league/{leagueId}")
 	public LeagueListDTO getChampionRotation(@PathVariable(value="leagueId") String leagueId) {
 		return leagueV4.getLeagueById(leagueId);
 	}

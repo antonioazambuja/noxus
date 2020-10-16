@@ -6,9 +6,9 @@
 
   - [Introduction](#introduction)
 
-  - [Dependencies](#Dependencies)
+  - [Dependencies](#dependencies)
 
-  - [Overview](#Overview)
+  - [Overview](#overview)
 
 ## Introduction
 
@@ -21,7 +21,11 @@ This project is wrapper API implementation of [Riot API](https://developer.riotg
   - [Gradle](https://gradle.org/)
 
   - [Redis](https://redis.io/)
-    - My Redis implementation used in this project:
-        - [Github - Redis](https://github.com/antonioazambuja/redis)
+    - Docker container Redis implementation used on developing this project:
+      - [Redis](https://github.com/antonioazambuja/redis)
+
+## Overview
+
+Champion Mastery V4
 
 ### Thanks!

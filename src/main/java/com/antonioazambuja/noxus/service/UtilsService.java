@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
 @Service
-public class RedisUtilsService {
+public class UtilsService {
 
 	@Autowired
 	private Jedis redisClient;
