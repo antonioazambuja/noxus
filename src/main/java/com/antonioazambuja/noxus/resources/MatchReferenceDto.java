@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Repository
 public class MatchReferenceDto {
 	@JsonProperty("gameId")
-	private Integer GameId;
+	private Long GameId;
 	@JsonProperty("role")
 	private String Role;
 	@JsonProperty("season")
@@ -25,7 +25,7 @@ public class MatchReferenceDto {
 
 	public MatchReferenceDto() {}
 
-	public MatchReferenceDto(Integer gameId, String role, Integer season, String platformId, Integer champion,
+	public MatchReferenceDto(Long gameId, String role, Integer season, String platformId, Integer champion,
 			Integer queue, String lane, Long timestamp) {
 		GameId = gameId;
 		Role = role;
@@ -37,11 +37,11 @@ public class MatchReferenceDto {
 		Timestamp = timestamp;
 	}
 
-	public Integer getGameId() {
+	public Long getGameId() {
 		return GameId;
 	}
 
-	public void setGameId(Integer gameId) {
+	public void setGameId(Long gameId) {
 		GameId = gameId;
 	}
 

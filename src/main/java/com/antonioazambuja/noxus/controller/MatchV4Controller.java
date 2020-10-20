@@ -20,7 +20,7 @@ public class MatchV4Controller {
 	private MatchV4Service matchV4;
 
 	@RequestMapping("/match/{matchId}")
-	public MatchDto getMatchById(@PathVariable(value="matchId") String matchId) {
+	public MatchDto getMatchById(@PathVariable(value="matchId") Long matchId) {
 		return matchV4.getMatchById(matchId);
 	}
 

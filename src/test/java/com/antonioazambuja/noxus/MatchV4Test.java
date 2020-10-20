@@ -32,7 +32,7 @@ public class MatchV4Test {
 
 	@Test
 	public void getMatchByIdTest() {
-		String matchId = "matchIdTest";
+		Long matchId = new Long(0);
 		MatchDto matchDto = new MatchDto(
 				new Long(0),
 				Arrays.asList(new ParticipantIdentityDto(new Integer(0), new PlayerDto(new Integer(0), "accountId", "matchHistoryUri", "currentAccountId", "currentPlatformId", "summonerName", "summonerId", "platformId"))),
@@ -64,7 +64,7 @@ public class MatchV4Test {
 	
 	@Test
 	public void getTimelineMatchByIdTest() {
-		String matchId = "matchIdTest";
+		Long matchId = new Long(0);
 		MatchDto matchDto = new MatchDto(
 				new Long(0),
 				Arrays.asList(new ParticipantIdentityDto(new Integer(0), new PlayerDto(new Integer(0), "accountId", "matchHistoryUri", "currentAccountId", "currentPlatformId", "summonerName", "summonerId", "platformId"))),
@@ -104,7 +104,7 @@ public class MatchV4Test {
 		Long beginTime = new Long(0);
 		Integer endIndex = new Integer(0);
 		Integer beginIndex = new Integer(0);
-		MatchlistDto matchlistDto = new MatchlistDto(new Integer(0), new Integer(0), new Integer(0), Arrays.asList(new MatchReferenceDto(new Integer(0), "role", new Integer(0), "platformId", new Integer(0), new Integer(0), "lane", new Long(0))));
+		MatchlistDto matchlistDto = new MatchlistDto(new Integer(0), new Integer(0), new Integer(0), Arrays.asList(new MatchReferenceDto(new Long(0), "role", new Integer(0), "platformId", new Integer(0), new Integer(0), "lane", new Long(0))));
 		Mockito
 	        .when(matchV4.getMatchesByAccountId(encryptedAccountId, champion, queue, season, endTime, beginTime, endIndex, beginIndex))
 	        .thenReturn(matchlistDto);
