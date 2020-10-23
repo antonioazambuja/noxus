@@ -20,10 +20,30 @@ public class SummonerAnalyzeController {
 	public List<MatchDto> getWinMatchesBySummoner(@PathVariable(value="summonerName") String summonerName) {
 		return summonerAnalyze.getWinMatchesBySummoner(summonerName);
 	}
-
+	
 	@RequestMapping("/analyze/lose/{summonerName}")
 	public List<MatchDto> getLoseMatchesBySummoner(@PathVariable(value="summonerName") String summonerName) {
 		return summonerAnalyze.getLoseMatchesBySummoner(summonerName);
+	}
+	
+	@RequestMapping("/analyze/top/{summonerName}")
+	public List<MatchDto> getTopLaneMatchesBySummoner(@PathVariable(value="summonerName") String summonerName) {
+		return summonerAnalyze.getTopLaneMatchesBySummoner(summonerName);
+	}
+	
+	@RequestMapping("/analyze/mid/{summonerName}")
+	public List<MatchDto> getMidLaneMatchesBySummoner(@PathVariable(value="summonerName") String summonerName) {
+		return summonerAnalyze.getMidLaneMatchesBySummoner(summonerName);
+	}
+	
+	@RequestMapping("/analyze/bottom/{summonerName}")
+	public List<MatchDto> getBottomLaneMatchesBySummoner(@PathVariable(value="summonerName") String summonerName) {
+		return summonerAnalyze.getBotLaneMatchesBySummoner(summonerName);
+	}
+
+	@RequestMapping("/analyze/jungle/{summonerName}")
+	public List<MatchDto> getJungleLaneMatchesBySummoner(@PathVariable(value="summonerName") String summonerName) {
+		return summonerAnalyze.getJungleLaneMatchesBySummoner(summonerName);
 	}
 
 }

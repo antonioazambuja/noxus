@@ -71,4 +71,82 @@ public class SummonerAnalyze {
 		}
 		return loseMatches;
 	}
+	
+	public List<MatchDto> getTopLaneMatchesBySummoner(String summonerName) {
+		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
+		HashSet<MatchReferenceDto> matches = new HashSet<MatchReferenceDto>();
+		MatchlistDto matchlistDto = new MatchlistDto();
+		Integer index = new Integer(0);
+		do {
+			index = index + 100;
+			matchlistDto = matchService.getMatchesByAccountId(summonerDto.getAccountId(), index, index-100);
+			matches.addAll(matchlistDto.getMatches());
+		} while (matchlistDto.getEndIndex() == index);
+		return matches.stream()
+				.filter(matchReferenceDto -> matchReferenceDto.getLane().equals("TOP"))
+				.map(match -> matchService.getMatchById(match.getGameId()))
+				.filter(match -> !match.getGameMode()
+						.equals("TUTORIAL_MODULE_1"))
+				.collect(Collectors.toList());
+	}
+	
+	public List<MatchDto> getMidLaneMatchesBySummoner(String summonerName) {
+		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
+		HashSet<MatchReferenceDto> matches = new HashSet<MatchReferenceDto>();
+		MatchlistDto matchlistDto = new MatchlistDto();
+		Integer index = new Integer(0);
+		do {
+			index = index + 100;
+			matchlistDto = matchService.getMatchesByAccountId(summonerDto.getAccountId(), index, index-100);
+			matches.addAll(matchlistDto.getMatches());
+		} while (matchlistDto.getEndIndex() == index);
+		return matches.stream()
+				.filter(matchReferenceDto -> matchReferenceDto.getLane().equals("MID"))
+				.map(match -> matchService.getMatchById(match.getGameId()))
+				.filter(match -> !match.getGameMode()
+						.equals("TUTORIAL_MODULE_1"))
+				.collect(Collectors.toList());
+	}
+	
+	public List<MatchDto> getJungleLaneMatchesBySummoner(String summonerName) {
+		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
+		HashSet<MatchReferenceDto> matches = new HashSet<MatchReferenceDto>();
+		MatchlistDto matchlistDto = new MatchlistDto();
+		Integer index = new Integer(0);
+		do {
+			index = index + 100;
+			matchlistDto = matchService.getMatchesByAccountId(summonerDto.getAccountId(), index, index-100);
+			matches.addAll(matchlistDto.getMatches());
+		} while (matchlistDto.getEndIndex() == index);
+		return matches.stream()
+				.filter(matchReferenceDto -> matchReferenceDto.getLane().equals("JUNGLE"))
+				.map(match -> matchService.getMatchById(match.getGameId()))
+				.filter(match -> !match.getGameMode()
+						.equals("TUTORIAL_MODULE_1"))
+				.collect(Collectors.toList());
+	}
+
+	public List<MatchDto> getBotLaneMatchesBySummoner(String summonerName) {
+		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
+		HashSet<MatchReferenceDto> matches = new HashSet<MatchReferenceDto>();
+		MatchlistDto matchlistDto = new MatchlistDto();
+		Integer index = new Integer(0);
+		do {
+			index = index + 100;
+			matchlistDto = matchService.getMatchesByAccountId(summonerDto.getAccountId(), index, index-100);
+			matches.addAll(matchlistDto.getMatches());
+		} while (matchlistDto.getEndIndex() == index);
+		return matches.stream()
+				.filter(matchReferenceDto -> matchReferenceDto.getLane().equals("BOTTOM"))
+				.map(match -> matchService.getMatchById(match.getGameId()))
+				.filter(match -> !match.getGameMode()
+				.equals("TUTORIAL_MODULE_1"))
+				.collect(Collectors.toList());
+	}
+
+//	public void getAnalitycsDataMatches(List<MatchDto> matches, String summonerName) {
+//		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
+//		matches.stream().filter(match -> match.getGameId())
+////		matches.stream().sorted(Comparator.comparing(MatchDto::)).filter(match -> ).findFirst().orElse(null) )).findFirst().orElse(null);
+//	}
 }
