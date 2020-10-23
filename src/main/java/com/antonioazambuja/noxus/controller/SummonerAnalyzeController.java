@@ -15,10 +15,15 @@ public class SummonerAnalyzeController {
 
 	@Autowired
 	private SummonerAnalyze summonerAnalyze;
-
-	@RequestMapping("/analyze/{summonerName}")
-	public List<MatchDto> getChampionRotation(@PathVariable(value="summonerName") String summonerName) {
+	
+	@RequestMapping("/analyze/win/{summonerName}")
+	public List<MatchDto> getWinMatchesBySummoner(@PathVariable(value="summonerName") String summonerName) {
 		return summonerAnalyze.getWinMatchesBySummoner(summonerName);
+	}
+
+	@RequestMapping("/analyze/lose/{summonerName}")
+	public List<MatchDto> getLoseMatchesBySummoner(@PathVariable(value="summonerName") String summonerName) {
+		return summonerAnalyze.getLoseMatchesBySummoner(summonerName);
 	}
 
 }
