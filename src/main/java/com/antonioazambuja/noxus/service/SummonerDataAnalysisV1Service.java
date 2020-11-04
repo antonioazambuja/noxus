@@ -8,13 +8,15 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.antonioazambuja.noxus.resources.SummonerLaneMatchesDataAnalysisV1;
 import com.antonioazambuja.noxus.resources.MatchDto;
 import com.antonioazambuja.noxus.resources.MatchReferenceDto;
 import com.antonioazambuja.noxus.resources.MatchlistDto;
+import com.antonioazambuja.noxus.resources.SummonerChampionMatchesDataAnalysisV1;
 import com.antonioazambuja.noxus.resources.SummonerDTO;
 
 @Service
-public class SummonerAnalyze {
+public class SummonerDataAnalysisV1Service {
 
 	@Autowired
 	private SummonerV4Service summonerV4;
@@ -34,8 +36,7 @@ public class SummonerAnalyze {
 		} while (matchlistDto.getEndIndex() == index);
 		List<MatchDto> winMatches = new ArrayList<>();
 		for (MatchDto matchDto: matches.stream().map(match -> matchService.getMatchById(match.getGameId()))
-				.filter(match -> !match.getGameMode()
-				.equals("TUTORIAL_MODULE_1"))
+				.filter(match -> !match.getGameMode().equals("TUTORIAL_MODULE_1"))
 				.collect(Collectors.toList())) {
 			Integer winTeamId = matchDto.getTeams().stream().filter(team -> team.getWin().equals("Win")).findAny().orElse(null).getTeamId();
 			Integer participantIdentityDtoId = matchDto.getParticipantIdentities().stream().filter(participantIdentity -> participantIdentity.getPlayer().getAccountId().equals(summonerDto.getAccountId())).findAny().orElse(null).getParticipantId();
@@ -59,8 +60,7 @@ public class SummonerAnalyze {
 		} while (matchlistDto.getEndIndex() == index);
 		List<MatchDto> loseMatches = new ArrayList<>();
 		for (MatchDto matchDto: matches.stream().map(match -> matchService.getMatchById(match.getGameId()))
-				.filter(match -> !match.getGameMode()
-				.equals("TUTORIAL_MODULE_1"))
+				.filter(match -> !match.getGameMode().equals("TUTORIAL_MODULE_1"))
 				.collect(Collectors.toList())) {
 			Integer loseTeamId = matchDto.getTeams().stream().filter(team -> team.getWin().equals("Fail")).findAny().orElse(null).getTeamId();
 			Integer participantIdentityDtoId = matchDto.getParticipantIdentities().stream().filter(participantIdentity -> participantIdentity.getPlayer().getAccountId().equals(summonerDto.getAccountId())).findAny().orElse(null).getParticipantId();
@@ -71,8 +71,8 @@ public class SummonerAnalyze {
 		}
 		return loseMatches;
 	}
-	
-	public List<MatchDto> getTopLaneMatchesBySummoner(String summonerName) {
+
+	public List<MatchDto> getLaneMatchesBySummoner(String summonerName, String lane) {
 		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
 		HashSet<MatchReferenceDto> matches = new HashSet<MatchReferenceDto>();
 		MatchlistDto matchlistDto = new MatchlistDto();
@@ -83,50 +83,13 @@ public class SummonerAnalyze {
 			matches.addAll(matchlistDto.getMatches());
 		} while (matchlistDto.getEndIndex() == index);
 		return matches.stream()
-				.filter(matchReferenceDto -> matchReferenceDto.getLane().equals("TOP"))
-				.map(match -> matchService.getMatchById(match.getGameId()))
-				.filter(match -> !match.getGameMode()
-						.equals("TUTORIAL_MODULE_1"))
-				.collect(Collectors.toList());
-	}
-	
-	public List<MatchDto> getMidLaneMatchesBySummoner(String summonerName) {
-		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
-		HashSet<MatchReferenceDto> matches = new HashSet<MatchReferenceDto>();
-		MatchlistDto matchlistDto = new MatchlistDto();
-		Integer index = new Integer(0);
-		do {
-			index = index + 100;
-			matchlistDto = matchService.getMatchesByAccountId(summonerDto.getAccountId(), index, index-100);
-			matches.addAll(matchlistDto.getMatches());
-		} while (matchlistDto.getEndIndex() == index);
-		return matches.stream()
-				.filter(matchReferenceDto -> matchReferenceDto.getLane().equals("MID"))
-				.map(match -> matchService.getMatchById(match.getGameId()))
-				.filter(match -> !match.getGameMode()
-						.equals("TUTORIAL_MODULE_1"))
-				.collect(Collectors.toList());
-	}
-	
-	public List<MatchDto> getJungleLaneMatchesBySummoner(String summonerName) {
-		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
-		HashSet<MatchReferenceDto> matches = new HashSet<MatchReferenceDto>();
-		MatchlistDto matchlistDto = new MatchlistDto();
-		Integer index = new Integer(0);
-		do {
-			index = index + 100;
-			matchlistDto = matchService.getMatchesByAccountId(summonerDto.getAccountId(), index, index-100);
-			matches.addAll(matchlistDto.getMatches());
-		} while (matchlistDto.getEndIndex() == index);
-		return matches.stream()
-				.filter(matchReferenceDto -> matchReferenceDto.getLane().equals("JUNGLE"))
-				.map(match -> matchService.getMatchById(match.getGameId()))
-				.filter(match -> !match.getGameMode()
-						.equals("TUTORIAL_MODULE_1"))
+				.filter(matchReferenceDto -> matchReferenceDto.getLane().equals(lane.toUpperCase()))
+				.map(matchReferenceDto -> matchService.getMatchById(matchReferenceDto.getGameId()))
+				.filter(matchReferenceDto -> !matchReferenceDto.getGameMode().equals("TUTORIAL_MODULE_1"))
 				.collect(Collectors.toList());
 	}
 
-	public List<MatchDto> getBotLaneMatchesBySummoner(String summonerName) {
+	public List<MatchDto> getChampionMatchesBySummoner(String summonerName, Integer champion) {
 		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
 		HashSet<MatchReferenceDto> matches = new HashSet<MatchReferenceDto>();
 		MatchlistDto matchlistDto = new MatchlistDto();
@@ -137,16 +100,39 @@ public class SummonerAnalyze {
 			matches.addAll(matchlistDto.getMatches());
 		} while (matchlistDto.getEndIndex() == index);
 		return matches.stream()
-				.filter(matchReferenceDto -> matchReferenceDto.getLane().equals("BOTTOM"))
-				.map(match -> matchService.getMatchById(match.getGameId()))
-				.filter(match -> !match.getGameMode()
-				.equals("TUTORIAL_MODULE_1"))
+				.filter(matchReferenceDto -> matchReferenceDto.getChampion().equals(champion))
+				.map(matchReferenceDto -> matchService.getMatchById(matchReferenceDto.getGameId()))
+				.filter(match -> !match.getGameMode().equals("TUTORIAL_MODULE_1"))
 				.collect(Collectors.toList());
 	}
 
-//	public void getAnalitycsDataMatches(List<MatchDto> matches, String summonerName) {
-//		SummonerDTO summonerDto = summonerV4.getSummonerByName(summonerName);
-//		matches.stream().filter(match -> match.getGameId())
-////		matches.stream().sorted(Comparator.comparing(MatchDto::)).filter(match -> ).findFirst().orElse(null) )).findFirst().orElse(null);
-//	}
+	public SummonerLaneMatchesDataAnalysisV1 getLaneMatchesDataAnalysisV1(String lane, String summonerName) {
+		List<MatchDto> matches = getLaneMatchesBySummoner(summonerName, lane);
+		SummonerDTO summonerDTO = summonerV4.getSummonerByName(summonerName);
+		Integer winMatchesTotal = matches.stream()
+				.filter(match -> match.getParticipants()
+						.stream()
+						.filter(participant -> participant.getParticipantId().equals(match.getParticipantIdentities()
+								.stream()
+								.filter(participantIdentities -> participantIdentities.getPlayer().getAccountId().equals(summonerDTO.getAccountId())).findFirst().orElse(null).getParticipantId())).findFirst().orElse(null).getStats().getWin())
+				.collect(Collectors.toList()).size();
+		Double winRate = Math.floor((winMatchesTotal / new Double(matches.size())) * 100);
+		return new SummonerLaneMatchesDataAnalysisV1(lane, winRate, matches, summonerDTO);
+	}
+
+	public SummonerChampionMatchesDataAnalysisV1 getChampionMatchesDataAnalysisV1(Integer championId, String summonerName) {
+		List<MatchDto> matches = getChampionMatchesBySummoner(summonerName, championId);
+		SummonerDTO summonerDTO = summonerV4.getSummonerByName(summonerName);
+		Integer winMatchesTotal = matches.stream()
+				.filter(match -> match.getParticipants()
+						.stream()
+						.filter(participant -> participant.getParticipantId().equals(match.getParticipantIdentities()
+								.stream()
+								.filter(participantIdentities -> participantIdentities.getPlayer().getAccountId().equals(summonerDTO.getAccountId()))
+								.findFirst().orElse(null).getParticipantId()))
+						.findFirst().orElse(null).getStats().getWin())
+				.collect(Collectors.toList()).size();
+		Double winRate = Math.floor((winMatchesTotal / new Double(matches.size())) * 100);
+		return new SummonerChampionMatchesDataAnalysisV1(championId, winRate, matches, summonerDTO);
+	}
 }
