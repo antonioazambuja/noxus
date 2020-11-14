@@ -8,15 +8,16 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.antonioazambuja.noxus.resources.SummonerLaneMatchesDataAnalysisV1;
+import com.antonioazambuja.noxus.resources.SummonerDataLaneV1;
+import com.antonioazambuja.noxus.resources.SummonerDataV1;
 import com.antonioazambuja.noxus.resources.MatchDto;
 import com.antonioazambuja.noxus.resources.MatchReferenceDto;
 import com.antonioazambuja.noxus.resources.MatchlistDto;
-import com.antonioazambuja.noxus.resources.SummonerChampionMatchesDataAnalysisV1;
+import com.antonioazambuja.noxus.resources.SummonerDataChampionV1;
 import com.antonioazambuja.noxus.resources.SummonerDTO;
 
 @Service
-public class SummonerDataAnalysisV1Service {
+public class SummonerDataV1Service {
 
 	@Autowired
 	private SummonerV4Service summonerV4;
@@ -106,7 +107,7 @@ public class SummonerDataAnalysisV1Service {
 				.collect(Collectors.toList());
 	}
 
-	public SummonerLaneMatchesDataAnalysisV1 getLaneMatchesDataAnalysisV1(String lane, String summonerName) {
+	public SummonerDataLaneV1 getLaneMatchesDataAnalysisV1(String lane, String summonerName) {
 		List<MatchDto> matches = getLaneMatchesBySummoner(summonerName, lane);
 		SummonerDTO summonerDTO = summonerV4.getSummonerByName(summonerName);
 		Integer winMatchesTotal = matches.stream()
@@ -117,10 +118,10 @@ public class SummonerDataAnalysisV1Service {
 								.filter(participantIdentities -> participantIdentities.getPlayer().getAccountId().equals(summonerDTO.getAccountId())).findFirst().orElse(null).getParticipantId())).findFirst().orElse(null).getStats().getWin())
 				.collect(Collectors.toList()).size();
 		Double winRate = Math.floor((winMatchesTotal / new Double(matches.size())) * 100);
-		return new SummonerLaneMatchesDataAnalysisV1(lane, winRate, matches, summonerDTO);
+		return new SummonerDataLaneV1(lane, winRate, matches, summonerDTO);
 	}
 
-	public SummonerChampionMatchesDataAnalysisV1 getChampionMatchesDataAnalysisV1(Integer championId, String summonerName) {
+	public SummonerDataChampionV1 getChampionMatchesDataAnalysisV1(Integer championId, String summonerName) {
 		List<MatchDto> matches = getChampionMatchesBySummoner(summonerName, championId);
 		SummonerDTO summonerDTO = summonerV4.getSummonerByName(summonerName);
 		Integer winMatchesTotal = matches.stream()
@@ -133,6 +134,22 @@ public class SummonerDataAnalysisV1Service {
 						.findFirst().orElse(null).getStats().getWin())
 				.collect(Collectors.toList()).size();
 		Double winRate = Math.floor((winMatchesTotal / new Double(matches.size())) * 100);
-		return new SummonerChampionMatchesDataAnalysisV1(championId, winRate, matches, summonerDTO);
+		return new SummonerDataChampionV1(championId, winRate, matches, summonerDTO);
+	}
+
+	public SummonerDataV1 getMatchesDataAnalysisV1(String summonerName) {
+		List<MatchDto> matches = getWinMatchesBySummoner(summonerName);
+		SummonerDTO summonerDTO = summonerV4.getSummonerByName(summonerName);
+		Integer winMatchesTotal = matches.stream()
+				.filter(match -> match.getParticipants()
+						.stream()
+						.filter(participant -> participant.getParticipantId().equals(match.getParticipantIdentities()
+								.stream()
+								.filter(participantIdentities -> participantIdentities.getPlayer().getAccountId().equals(summonerDTO.getAccountId()))
+								.findFirst().orElse(null).getParticipantId()))
+						.findFirst().orElse(null).getStats().getWin())
+				.collect(Collectors.toList()).size();
+		Double winRate = Math.floor((winMatchesTotal / new Double(matches.size())) * 100);
+		return new SummonerDataV1(winRate, matches, summonerDTO);
 	}
 }
