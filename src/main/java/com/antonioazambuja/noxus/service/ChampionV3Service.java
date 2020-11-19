@@ -21,7 +21,7 @@ public class ChampionV3Service {
 	private static final String CHAMPION_V3_CACHE_ID = "champion_v3_";
 
 	@Autowired
-	private RedisUtilsService redisUtils;
+	private RedisService redisUtils;
 
 	@Autowired
 	private Gson gson;
@@ -53,6 +53,7 @@ public class ChampionV3Service {
 		);
 		redisClient.set(cacheKey, gson.toJson(championInfo.getBody()));
 		redisUtils.expireAt(cacheKey);
+		redisClient.close();
 		return championInfo.getBody();
 	}
 }

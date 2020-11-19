@@ -21,7 +21,7 @@ public class ChampionMasteryV4Service {
 	private static final String CHAMPION_MASTERY_CACHE_ID = "champion_mastery_";
 
 	@Autowired
-	private RedisUtilsService redisUtils;
+	private RedisService redisUtils;
 
 	@Autowired
 	private Gson gson;
@@ -54,6 +54,7 @@ public class ChampionMasteryV4Service {
 		);
 		redisClient.set(cacheKey, gson.toJson(championMasteries.getBody()));
 		redisUtils.expireAt(cacheKey);
+		redisClient.close();
 		return championMasteries.getBody();
 	}
 
@@ -74,6 +75,7 @@ public class ChampionMasteryV4Service {
 		);
 		redisClient.set(cacheKey, gson.toJson(championMastery.getBody()));
 		redisUtils.expireAt(cacheKey);
+		redisClient.close();
 		return championMastery.getBody();
 	}
 
@@ -93,6 +95,7 @@ public class ChampionMasteryV4Service {
 		);
 		redisClient.set(cacheKey, gson.toJson(summonerScore.getBody()));
 		redisUtils.expireAt(cacheKey);
+		redisClient.close();
 		return summonerScore.getBody();
 	}
 }

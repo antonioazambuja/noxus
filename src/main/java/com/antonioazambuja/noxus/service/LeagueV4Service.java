@@ -22,7 +22,7 @@ public class LeagueV4Service {
 	private static final String LEAGUE_V4_CACHE_ID = "league_v4_";
 
 	@Autowired
-	private RedisUtilsService redisUtils;
+	private RedisService redisUtils;
 
 	@Autowired
 	private Gson gson;

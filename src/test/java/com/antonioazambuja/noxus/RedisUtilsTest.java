@@ -7,13 +7,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.antonioazambuja.noxus.service.RedisUtilsService;
+import com.antonioazambuja.noxus.service.RedisService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RedisUtilsTest {
 
 	@Mock
-    private RedisUtilsService redisUtilsService;
+    private RedisService redisUtilsService;
 
 	@Test
 	public void expireAtTest() {
