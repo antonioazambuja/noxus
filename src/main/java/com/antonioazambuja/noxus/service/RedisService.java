@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.antonioazambuja.noxus.exceptions.NotFoundCacheException;
+import com.antonioazambuja.noxus.exceptions.CacheException;
 import com.google.gson.Gson;
 import com.google.gson.internal.Primitives;
 
@@ -43,11 +43,13 @@ public class RedisService {
 		return cacheResponse;
 	}
 
-	public <T> T getCache(String cacheKey, Class<T> classOfT) {
+	public <T> T getCache(String cacheKey, Class<T> classOfT, Boolean updateCache) {
 		Jedis redisClient = redisPool.getResource();
 		T cacheResult = Primitives.wrap(classOfT).cast(gson.fromJson(redisClient.get(cacheKey), (Type) classOfT));
 		if (cacheResult == null) {
-			throw new NotFoundCacheException("Not found cache requested...");
+			throw new CacheException("Not found cache requested...");
+		} else if (updateCache) {
+			throw new CacheException("Explict request to cache update...");
 		}
 		return cacheResult;
 	}

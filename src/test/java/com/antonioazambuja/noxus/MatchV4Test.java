@@ -56,10 +56,10 @@ public class MatchV4Test {
 						"UNRANKED",
 						Arrays.asList(new MasteryDto(new Integer(0), new Integer(0))))));
 		Mockito
-		.when(matchV4.getMatchById(matchId))
+		.when(matchV4.getMatchById(matchId, false))
 		.thenReturn(matchDto);
-		Assert.assertEquals(matchV4.getMatchById(matchId), matchDto);
-		Mockito.verify(matchV4).getMatchById(matchId);
+		Assert.assertEquals(matchV4.getMatchById(matchId, false), matchDto);
+		Mockito.verify(matchV4).getMatchById(matchId, false);
 	}
 	
 	@Test
@@ -88,10 +88,10 @@ public class MatchV4Test {
 						"UNRANKED",
 						Arrays.asList(new MasteryDto(new Integer(0), new Integer(0))))));
 		Mockito
-		.when(matchV4.getMatchById(matchId))
+		.when(matchV4.getMatchById(matchId, false))
 		.thenReturn(matchDto);
-		Assert.assertEquals(matchV4.getMatchById(matchId), matchDto);
-		Mockito.verify(matchV4).getMatchById(matchId);
+		Assert.assertEquals(matchV4.getMatchById(matchId, false), matchDto);
+		Mockito.verify(matchV4).getMatchById(matchId, false);
 	}
 
 	@Test
@@ -106,9 +106,9 @@ public class MatchV4Test {
 		Integer beginIndex = new Integer(0);
 		MatchlistDto matchlistDto = new MatchlistDto(new Integer(0), new Integer(0), new Integer(0), Arrays.asList(new MatchReferenceDto(new Long(0), "role", new Integer(0), "platformId", new Integer(0), new Integer(0), "lane", new Long(0))));
 		Mockito
-	        .when(matchV4.getMatchesByAccountId(encryptedAccountId, champion, queue, season, endTime, beginTime, endIndex, beginIndex))
+	        .when(matchV4.getMatchesByAccountId(encryptedAccountId, champion, queue, season, endTime, beginTime, endIndex, beginIndex, false))
 	        .thenReturn(matchlistDto);
-		Assert.assertEquals(matchV4.getMatchesByAccountId(encryptedAccountId, champion, queue, season, endTime, beginTime, endIndex, beginIndex), matchlistDto);
-		Mockito.verify(matchV4).getMatchesByAccountId(encryptedAccountId, champion, queue, season, endTime, beginTime, endIndex, beginIndex);
+		Assert.assertEquals(matchV4.getMatchesByAccountId(encryptedAccountId, champion, queue, season, endTime, beginTime, endIndex, beginIndex, false), matchlistDto);
+		Mockito.verify(matchV4).getMatchesByAccountId(encryptedAccountId, champion, queue, season, endTime, beginTime, endIndex, beginIndex, false);
 	}
 }

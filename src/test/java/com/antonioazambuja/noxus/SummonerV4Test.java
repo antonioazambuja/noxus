@@ -21,10 +21,10 @@ public class SummonerV4Test {
 		String encryptedAccountId = "encryptedAccountId";
 		SummonerDTO summonerDTO = new SummonerDTO("accountId", new Integer(0), new Long(0), "name", "id", "puuid", new Long(0));
 		Mockito
-		.when(summonerV4Service.getSummonerByEncryptedAccountId(encryptedAccountId))
+		.when(summonerV4Service.getSummonerByEncryptedAccountId(encryptedAccountId, false))
 		.thenReturn(summonerDTO);
-		Assert.assertEquals(summonerV4Service.getSummonerByEncryptedAccountId(encryptedAccountId), summonerDTO);
-		Mockito.verify(summonerV4Service).getSummonerByEncryptedAccountId(encryptedAccountId);
+		Assert.assertEquals(summonerV4Service.getSummonerByEncryptedAccountId(encryptedAccountId, false), summonerDTO);
+		Mockito.verify(summonerV4Service).getSummonerByEncryptedAccountId(encryptedAccountId, false);
 	}
 	
 	@Test
@@ -32,10 +32,10 @@ public class SummonerV4Test {
 		String summonerName = "summonerName";
 		SummonerDTO summonerDTO = new SummonerDTO("accountId", new Integer(0), new Long(0), "name", "id", "puuid", new Long(0));
 		Mockito
-		.when(summonerV4Service.getSummonerByName(summonerName))
+		.when(summonerV4Service.getSummonerByName(summonerName, false))
 		.thenReturn(summonerDTO);
-		Assert.assertEquals(summonerV4Service.getSummonerByName(summonerName), summonerDTO);
-		Mockito.verify(summonerV4Service).getSummonerByName(summonerName);
+		Assert.assertEquals(summonerV4Service.getSummonerByName(summonerName, false), summonerDTO);
+		Mockito.verify(summonerV4Service).getSummonerByName(summonerName, false);
 	}
 	
 	@Test
@@ -43,10 +43,10 @@ public class SummonerV4Test {
 		String encryptedPuuid = "encryptedPuuid";
 		SummonerDTO summonerDTO = new SummonerDTO("accountId", new Integer(0), new Long(0), "name", "id", "puuid", new Long(0));
 		Mockito
-		.when(summonerV4Service.getSummonerByPuuid(encryptedPuuid))
+		.when(summonerV4Service.getSummonerByPuuid(encryptedPuuid, false))
 		.thenReturn(summonerDTO);
-		Assert.assertEquals(summonerV4Service.getSummonerByPuuid(encryptedPuuid), summonerDTO);
-		Mockito.verify(summonerV4Service).getSummonerByPuuid(encryptedPuuid);
+		Assert.assertEquals(summonerV4Service.getSummonerByPuuid(encryptedPuuid, false), summonerDTO);
+		Mockito.verify(summonerV4Service).getSummonerByPuuid(encryptedPuuid, false);
 	}
 	
 	@Test
@@ -54,9 +54,9 @@ public class SummonerV4Test {
 		String encryptedSummonerId = "encryptedSummonerId";
 		SummonerDTO summonerDTO = new SummonerDTO("accountId", new Integer(0), new Long(0), "name", "id", "puuid", new Long(0));
 		Mockito
-		.when(summonerV4Service.getSummonerById(encryptedSummonerId))
+		.when(summonerV4Service.getSummonerById(encryptedSummonerId, false))
 		.thenReturn(summonerDTO);
-		Assert.assertEquals(summonerV4Service.getSummonerById(encryptedSummonerId), summonerDTO);
-		Mockito.verify(summonerV4Service).getSummonerById(encryptedSummonerId);
+		Assert.assertEquals(summonerV4Service.getSummonerById(encryptedSummonerId, false), summonerDTO);
+		Mockito.verify(summonerV4Service).getSummonerById(encryptedSummonerId, false);
 	}
 }

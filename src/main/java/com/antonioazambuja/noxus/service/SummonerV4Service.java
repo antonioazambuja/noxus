@@ -10,11 +10,8 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.antonioazambuja.noxus.exceptions.NotFoundCacheException;
+import com.antonioazambuja.noxus.exceptions.CacheException;
 import com.antonioazambuja.noxus.resources.SummonerDTO;
-import com.google.gson.Gson;
-
-import redis.clients.jedis.JedisPool;
 
 @Service
 public class SummonerV4Service {
@@ -34,12 +31,12 @@ public class SummonerV4Service {
 	private String riotApi;
 
 	@Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000))
-	public SummonerDTO getSummonerByEncryptedAccountId(String encryptedAccountId) {
+	public SummonerDTO getSummonerByEncryptedAccountId(String encryptedAccountId, Boolean updateCache) {
 		String cacheKey = SUMMONER_V4_CACHE_ID + encryptedAccountId;
 		try {
-			SummonerDTO cacheResult = redisUtils.getCache(cacheKey, SummonerDTO.class);
+			SummonerDTO cacheResult = redisUtils.getCache(cacheKey, SummonerDTO.class, updateCache);
 			return cacheResult;
-		} catch (NotFoundCacheException e) {
+		} catch (CacheException e) {
 			ResponseEntity<SummonerDTO> summonerDTO = restTemplate.exchange(
 					riotApi + "/lol/summoner/v4/summoners/by-account/{encryptedAccountId}",
 					HttpMethod.GET,
@@ -54,12 +51,12 @@ public class SummonerV4Service {
 	}
 
 	@Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000))
-	public SummonerDTO getSummonerByName(String summonerName) {
+	public SummonerDTO getSummonerByName(String summonerName, Boolean updateCache) {
 		String cacheKey = SUMMONER_V4_CACHE_ID + summonerName;
 		try {
-			SummonerDTO cacheResult = redisUtils.getCache(cacheKey, SummonerDTO.class);
+			SummonerDTO cacheResult = redisUtils.getCache(cacheKey, SummonerDTO.class, updateCache);
 			return cacheResult;
-		} catch (NotFoundCacheException e) {
+		} catch (CacheException e) {
 			ResponseEntity<SummonerDTO> summonerDTO = restTemplate.exchange(
 					riotApi + "/lol/summoner/v4/summoners/by-name/{summonerName}",
 					HttpMethod.GET,
@@ -74,12 +71,12 @@ public class SummonerV4Service {
 	}
 
 	@Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000))
-	public SummonerDTO getSummonerByPuuid(String encryptedPuuid) {
+	public SummonerDTO getSummonerByPuuid(String encryptedPuuid, Boolean updateCache) {
 		String cacheKey = SUMMONER_V4_CACHE_ID + encryptedPuuid;
 		try {
-			SummonerDTO cacheResult = redisUtils.getCache(cacheKey, SummonerDTO.class);
+			SummonerDTO cacheResult = redisUtils.getCache(cacheKey, SummonerDTO.class, updateCache);
 			return cacheResult;
-		} catch (NotFoundCacheException e) {
+		} catch (CacheException e) {
 			ResponseEntity<SummonerDTO> summonerDTO = restTemplate.exchange(
 					riotApi + "/lol/summoner/v4/summoners/by-puuid/{encryptedPuuid}",
 					HttpMethod.GET,
@@ -94,12 +91,12 @@ public class SummonerV4Service {
 	}
 
 	@Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000))
-	public SummonerDTO getSummonerById(String encryptedSummonerId) {
+	public SummonerDTO getSummonerById(String encryptedSummonerId, Boolean updateCache) {
 		String cacheKey = SUMMONER_V4_CACHE_ID + encryptedSummonerId;
 		try {
-			SummonerDTO cacheResult = redisUtils.getCache(cacheKey, SummonerDTO.class);
+			SummonerDTO cacheResult = redisUtils.getCache(cacheKey, SummonerDTO.class, updateCache);
 			return cacheResult;
-		} catch (NotFoundCacheException e) {
+		} catch (CacheException e) {
 			ResponseEntity<SummonerDTO> summonerDTO = restTemplate.exchange(
 					riotApi + "/lol/summoner/v4/summoners/{encryptedSummonerId}",
 					HttpMethod.GET,

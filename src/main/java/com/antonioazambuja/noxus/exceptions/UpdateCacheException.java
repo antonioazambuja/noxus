@@ -1,13 +1,13 @@
 package com.antonioazambuja.noxus.exceptions;
 
-public class NotFoundCacheException extends RuntimeException {
+public class UpdateCacheException extends RuntimeException {
 
 	  /**
 	 * 
 	 */
 	private static final long serialVersionUID = -2691279118089886133L;
 
-	public NotFoundCacheException(String errorMessage) {
+	public UpdateCacheException(String errorMessage) {
 	      super(errorMessage);
 	  }
 

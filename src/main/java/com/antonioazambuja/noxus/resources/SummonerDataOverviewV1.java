@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Repository
-public class SummonerDataV1 {
+public class SummonerDataOverviewV1 {
 	@JsonProperty("winRate")
 	private Double WinRate;
 	@JsonProperty("matches")
@@ -15,13 +15,13 @@ public class SummonerDataV1 {
 	@JsonProperty("summoner")
 	private SummonerDTO Summoner;
 
-	public SummonerDataV1(Double winRate, List<MatchDto> matches, SummonerDTO summoner) {
+	public SummonerDataOverviewV1(Double winRate, List<MatchDto> matches, SummonerDTO summoner) {
 		Matches = matches;
 		WinRate = winRate;
 		Summoner = summoner;
 	}
 
-	public SummonerDataV1() { }
+	public SummonerDataOverviewV1() { }
 
 	public Double getWinRate() {
 		return WinRate;
