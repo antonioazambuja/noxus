@@ -1,31 +1,53 @@
-# NOXUS - Wrapper API based in Riot API
+# NOXUS - Riot API Java client
 
-`This project is being developed.`
+Noxus project is a Java client based in Riot API for League of Legends game. The focus of the project of simple way is provide data of `active games`, `game history` and `classified statistics` in a customized way.
 
-## Summary
+## So what can I do with Noxus?
 
-  - [Introduction](#introduction)
+All of the following Riot API informations can be extracted:
 
-  - [Dependencies](#dependencies)
+* Champion masteries
+* Player scored
+* Champion rotations
+* Leagues:
+  * Challenger
+  * Grandmaster
+  * Master
+  * Others
+* Status data shards
+* Matches
+* Timeline matches
+* Featured games
+* Active summoner games
+* Summoner
 
-  - [Overview](#overview)
+## How do I use it?
 
-## Introduction
+You can use it as a dependency:
 
-This project is wrapper API implementation of [Riot API](https://developer.riotgames.com/). The focus of the project is to provide `active games`, `game history` and `classified statistics` in a customized way and focused on research by summoners. However gaining experience in creating Microservices Architecture, Redis, Docker, AWS, Java, DevOps, Monitoring and CI-CD.
+### Official Realeases
 
-## Dependencies
+* Maven:
+```xml
+<!-- https://mvnrepository.com/artifact/com.github.antonioazambuja/noxus -->
+<dependency>
+    <groupId>com.github.antonioazambuja</groupId>
+    <artifactId>noxus</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
 
-  - [Java](https://www.java.com/pt-BR/)
+* Gradle:
+```groovy
+// https://mvnrepository.com/artifact/com.github.antonioazambuja/noxus
+implementation group: 'com.github.antonioazambuja', name: 'noxus', version: '0.0.1'
+```
 
-  - [Gradle](https://gradle.org/)
-
-  - [Redis](https://redis.io/)
-    - Docker container Redis implementation used on developing this project:
-      - [Redis](https://github.com/antonioazambuja/redis)
-
-## Overview
-
-Champion Mastery V4
+To use it just:
+```java
+Noxus noxus = new Noxus(new Config("your-riot-api-key"), Regions.BR1);
+SummonerDTO summonerDTO = noxus.getSummonerByName("BlackPr1de");
+```
+And you are done!
 
 ### Thanks!
