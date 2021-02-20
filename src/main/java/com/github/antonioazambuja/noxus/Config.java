@@ -1,7 +1,10 @@
 package com.github.antonioazambuja.noxus;
 
+import java.util.Collections;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 public class Config {
