@@ -41,16 +41,18 @@ dependencies {
 archivesBaseName = 'noxus'
 group            = 'com.github.antonioazambuja'
 
-if (project.hasProperty('type') == "snap") {
-	version = project.hasProperty('version') + "-" + "SNAPSHOTS"
+if (project.hasProperty('type') && project.getProperty('type') == "snap") {
+	version = project.getProperty('version') + "-" + "SNAPSHOTS"
 } else {
-	version = project.hasProperty('version')
+	version = project.getProperty('version')
 }
 
 nexusStaging {
     packageGroup = "com.github.antonioazambuja"
+    delayBetweenRetriesInMillis = 120000
+    numberOfRetries = 1
     if (project.hasProperty('nexusStagingRetries')) {
-    	numberOfRetries = project.hasProperty('nexusStagingRetries')
+    	numberOfRetries = project.getProperty('nexusStagingRetries')
 	} else {
 		numberOfRetries = 1
 	}
